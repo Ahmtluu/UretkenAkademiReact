@@ -1,0 +1,22 @@
+.card-img-top {
+  transform: scale(1.4) !important;
+}
+
+.jumbotron{
+  background-color: #fff;
+  color: #000;
+}
+
+.jumbotronImage{
+  width: 300px;
+}
+
+
+.item-center {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 4px;
+  align-items: center;
+  justify-items: center;
+}
+
