@@ -1,6 +1,6 @@
 # Getting Started with Pokemon Collection
 
-This project was bootstrapped with [React](https://reactjs.org),
+This project was powered with [React](https://reactjs.org),
 [Firebase](https://firebase.google.com),
 [Cloud Firestore](https://firebase.google.com/docs/firestore) and [Redux](https://redux.js.org).
 
@@ -12,4 +12,4 @@ In this project I used .env for hiding Firebase API key. If you want to use my p
 First of all, install dependencies with "npm install" and then run the app in the development mode with "npm start"
 
 ### `C'mon! Give it a try!`
-### `Thank You! :pray:`
+### `Thank You! 🙏`
