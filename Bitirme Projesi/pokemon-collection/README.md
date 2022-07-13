@@ -1,8 +1,8 @@
 # Getting Started with Pokemon Collection
 
-This project was powered with [React](https://reactjs.org),
+This project was powered by [React](https://reactjs.org),
 [Firebase](https://firebase.google.com),
-[Cloud Firestore](https://firebase.google.com/docs/firestore) and [Redux](https://redux.js.org).
+[Cloud Firestore](https://firebase.google.com/docs/firestore), [Redux](https://redux.js.org) and [Pokemon API](https://pokeapi.co).
 
 ## `Security Warning!`
 
