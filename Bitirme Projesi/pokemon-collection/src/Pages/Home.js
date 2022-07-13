@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import PokemonList from "../components/PokemonList";
 import Header from "../components/Header";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setPokemons } from "../redux/actions/pokemonActions";
 import axios from "axios";
 
 export default function Home() {
-  const pokemons = useSelector((state) => state.allPokemons.pokemons);
+
+  console.log(process.env.REACT_APP_FIREBASE_API_KEY)
+
   const dispatch = useDispatch();
 
   const fetchPokemons = async () => {
@@ -18,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchPokemons();
-  }, []);
+  });
 
   return (
     <main className="mt-3">

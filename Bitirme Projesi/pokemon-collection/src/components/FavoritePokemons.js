@@ -11,17 +11,20 @@ import {
 
 import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { TailSpin } from "react-loader-spinner";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../service/firebase";
 
-export default function FavoritePokemons(props) {
+export default function FavoritePokemons({ user }) {
   const columnsPerRow = 4;
   const [favPokemon, setFavPokemon] = useState([]);
 
-  const removeFav = async (pokemon) => {
+  const removeFav = async (pokemon, usr) => {
     const { name } = pokemon._document.data.value.mapValue.fields;
 
     const q = query(
       collection(db, "favPokemons"),
-      where("uid", "==", props.user.uid),
+      where("uid", "==", usr.uid),
       where("name", "==", name.stringValue)
     );
     const docs = await getDocs(q);
@@ -40,7 +43,7 @@ export default function FavoritePokemons(props) {
   const fetchFavPokemons = async () => {
     const q = query(
       collection(db, "favPokemons"),
-      where("uid", "==", props.user.uid)
+      where("uid", "==", user.uid)
     );
     const docs = await getDocs(q);
     setFavPokemon(docs.docs);
@@ -48,7 +51,7 @@ export default function FavoritePokemons(props) {
 
   useEffect(() => {
     fetchFavPokemons();
-  });
+  }, [user]);
 
   return (
     <div className=" mt-3">
@@ -58,50 +61,49 @@ export default function FavoritePokemons(props) {
             <div className="card-header d-flex align-items-center justify-content-between">
               <div className="d-flex align-items-center">
                 <h5 className="px-3">Your Favorite Pokemon(s)</h5>
-                <div className="buttons">
-                  <button className="btn btn-outline-primary px-4">
-                    Export
-                  </button>
-                </div>
               </div>
             </div>
           </div>
 
-          <Row xs={1} md={columnsPerRow}>
-            {favPokemon &&
-              favPokemon.map((pokemon, idx) => {
-                const { name, pokemonId } =
-                  pokemon._document.data.value.mapValue.fields;
-                return (
-                  <Col key={idx}>
-                    <Card className="mt-2">
-                      <Link to={`/pokemon/${pokemonId.integerValue}`}>
-                        <Card.Header>
-                          <Card.Img
-                            src={`https://img.pokemondb.net/artwork/large/${name.stringValue}.jpg`}
-                            alt="talkie"
-                            className="card-img-top"
-                          />
-                        </Card.Header>
-                      </Link>
+          {user.uid ? (
+            <Row xs={1} md={columnsPerRow}>
+              {favPokemon &&
+                favPokemon.map((pokemon, idx) => {
+                  const { name, pokemonId } =
+                    pokemon._document.data.value.mapValue.fields;
+                  return (
+                    <Col key={idx}>
+                      <Card className="mt-2">
+                        <Link to={`/pokemon/${pokemonId.integerValue}`}>
+                          <Card.Header>
+                            <Card.Img
+                              src={`https://img.pokemondb.net/artwork/large/${name.stringValue}.jpg`}
+                              alt="talkie"
+                              className="card-img-top"
+                            />
+                          </Card.Header>
+                        </Link>
 
-                      <Card.Body className="d-flex justify-content-around">
-                        <Card.Title>
-                          {name.stringValue[0].toUpperCase() +
-                            name.stringValue.slice(1)}
-                        </Card.Title>
-                        <button
-                          className="btn btn-danger"
-                          onClick={(e) => removeFav(pokemon)}
-                        >
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                );
-              })}
-          </Row>
+                        <Card.Body className="d-flex justify-content-around">
+                          <Card.Title>
+                            {name.stringValue[0].toUpperCase() +
+                              name.stringValue.slice(1)}
+                          </Card.Title>
+                          <button
+                            className="btn btn-danger"
+                            onClick={(e) => removeFav(pokemon, user)}
+                          >
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  );
+                })}
+            </Row>
+          ) : (
+            <TailSpin color="#F37878" height={80} width={80} />
+          )}
         </div>
       </div>
     </div>

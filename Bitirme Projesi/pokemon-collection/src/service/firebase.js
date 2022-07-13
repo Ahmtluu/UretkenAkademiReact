@@ -17,11 +17,12 @@ import {
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "pokemon-collection-772f6.firebaseapp.com",
-  projectId: "pokemon-collection-772f6",
-  storageBucket: "pokemon-collection-772f6.appspot.com",
-  messagingSenderId: "546916191102",
-  appId: "1:546916191102:web:f4de57dc5d9423784a012f",
+  authDomain: "pokemon-collection-5f6cb.firebaseapp.com",
+  projectId: "pokemon-collection-5f6cb",
+  storageBucket: "pokemon-collection-5f6cb.appspot.com",
+  messagingSenderId: "143742346494",
+  appId: "1:143742346494:web:6bfa224193c3d09cc2f1af",
+  measurementId: "G-2X0R3VHRWE"
 };
 
 const signInWithGoogle = async () => {

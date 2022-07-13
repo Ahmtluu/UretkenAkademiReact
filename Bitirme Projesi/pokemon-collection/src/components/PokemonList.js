@@ -1,7 +1,6 @@
 import React from "react";
-import { Card, Button, Image } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 export default function PokemonList() {

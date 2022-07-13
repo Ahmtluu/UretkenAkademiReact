@@ -5,14 +5,13 @@ import PokemonAvatar from "../components/PokemonAvatar";
 import PokemonAbilities from "../components/PokemonAbilities";
 import PokemonInfo from "../components/PokemonInfo";
 import PokemonType from "../components/PokemonType";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   selectPokemon,
   removeSelectedPokemons,
 } from "../redux/actions/pokemonActions";
 
 export default function DetailPage() {
-  const pokemon = useSelector((state) => state.pokemon);
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ export default function DetailPage() {
     return () => {
       dispatch(removeSelectedPokemons());
     };
-  }, [id]);
+  });
 
   return (
     <section>

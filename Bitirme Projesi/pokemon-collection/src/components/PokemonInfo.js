@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heart } from "react-bootstrap-icons";
 import { addFavPokemon } from "../service/firebase";
 import { TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../service/firebase";
 
 export default function PokemonInfo() {
   const pokemon = useSelector((state) => state.pokemon);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+      return;
+    });
+  }, []);
+
+  console.log(user);
 
   return (
     <div className="card mb-4">
@@ -47,13 +61,17 @@ export default function PokemonInfo() {
 
         <div className="row d-flex text-end m-1">
           <div className="col-sm-12">
-            <button
-              type="button"
-              onClick={(e) => addFavPokemon(pokemon)}
-              className="btn btn-danger"
-            >
-              <Heart /> | Add Favorite
-            </button>
+            {user.length !== 0 ? (
+              <button
+                type="button"
+                onClick={(e) => addFavPokemon(pokemon)}
+                className="btn btn-danger"
+              >
+                <Heart /> | Add Favorite
+              </button>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>
